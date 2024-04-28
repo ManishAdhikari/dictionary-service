@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: "{{ .Values.appName }}-mongo-cr-binding"
+  namespace: "{{ .Values.appName }}-ns"
+  labels:
+    app: "{{ .Values.appName }}"
+subjects:
+  - kind: ServiceAccount
+    name: "{{ .Values.appName }}-mongo-sa"
+    namespace: "{{ .Values.appName }}-ns"
+roleRef:
+  kind: ClusterRole
+  name: "{{ .Values.appName }}-mongo-cr"
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,15 @@
+# Default values for dictionary-service-helm-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+appName: dictionary-service
+appImage: docker.io/library/dictionary-service:latest
+deployment:
+  replicaCount: 2
+statefulset:
+  replicaCount: 2
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 5
+  targetMemoryUtilizationPercentage: 5

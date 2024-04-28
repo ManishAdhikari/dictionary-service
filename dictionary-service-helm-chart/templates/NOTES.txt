@@ -1,0 +1,27 @@
+1. Release namespace = {{ .Release.Namespace }}
+
+2. To view all k8s objects run below command
+kubectl get all -n {{ .Release.Namespace }}
+
+3. To view the kubernetes dashboard run the following script
+k8s/launch-k8s-dashboard.bat
+and then open
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+
+4. To get the token, run the below command-
+kubectl get secret admin-user -n kubernetes-dashboard -o=jsonpath='{.data.token}'
+
+5. Decode the token using Base64 decoder
+https://www.base64decode.org/
+
+6. Paste the decoded token and voila access the dashboard!
+
+For more details refer-
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+
+7. To run MongoDB on Kubernetes
+https://phoenixnap.com/kb/kubernetes-mongodb
+
+8. Calico setup
+https://vincent0426.medium.com/setting-up-a-kubernetes-cluster-with-calico-cni-and-applying-network-policies-c196b4f25687

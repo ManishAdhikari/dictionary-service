@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.appName }}-deploy"
+  namespace: "{{ .Values.appName }}-ns"
+  labels:
+    app: "{{ .Values.appName }}"
+spec:
+  replicas: {{ .Values.deployment.replicaCount}}
+  selector:
+    matchLabels:
+      app: "{{ .Values.appName }}-app"
+  template:
+    metadata:
+      labels:
+        name: "{{ .Values.appName }}"
+        app: "{{ .Values.appName }}-app"
+    spec:
+#      volumes:
+#        - name: "{{ .Values.appName }}-vol-for-secret"
+#          secret:
+#            secretName: "{{ .Values.appName }}-secret"
+      securityContext:
+        runAsUser: 111
+        runAsNonRoot: false
+      containers:
+        - name: "{{ .Values.appName }}-container"
+          image: "{{ .Values.appImage }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8181
+          command:
+          args:
+          envFrom:
+            - configMapRef:
+                name: "{{ .Values.appName }}-cm"
+            - secretRef:
+                name: "{{ .Values.appName }}-secret"
+#          volumeMounts:
+#            - name : "{{ .Values.appName }}-vol-for-secret"
+#              mountPath: /app/secret
+#              readOnly: true
+          securityContext: # this overrides values of spec.securityContext
+            runAsNonRoot: true
+            runAsUser: 123
+            allowPrivilegeEscalation: false
+            capabilities:
+              add:
+                - "SYS_TIME"
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 0.5
