@@ -1,14 +1,21 @@
 version: "3.9"
 
 services:
-#  app:
-#    image: 'dictionary-service:latest'
-#    container_name: 'dictionary-service'
-#    environment:
-#    ports:
-#      - '8181:8181'
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'dictionary-service'
+    environment:
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+      - DB_NAME=dictionary-service-db
+      - DB_USER=appUser
+      - DB_PASSWORD=appPass
+    ports:
+      - '8282:8181'
   mongodb:
-    image: 'mongo:latest'
+    image: 'mongo:4.0.8'
     container_name: 'mongodb'
     environment:
       - MONGO_INITDB_DATABASE=dictionary-service-db

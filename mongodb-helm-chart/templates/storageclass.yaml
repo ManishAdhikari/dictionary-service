@@ -6,5 +6,5 @@ metadata:
   labels:
     app: "{{ .Values.appName }}"
 provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
+#volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true

@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.appName }}-mongo-headless-svc"
+  name: "{{ .Values.appName }}-mongodb-svc"
   namespace: "{{ .Values.appName }}-ns"
   labels:
     app: "{{ .Values.appName }}"
 spec:
-  ports:
-    - port: 27017
-      targetPort: 27017
   clusterIP: None
   selector:
-    app: "{{ .Values.appName }}-mongodb"
+    app: mongodb
+  ports:
+    - port: 27017

@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: "{{ .Values.appName }}-mongodb-pvc"
+  namespace: "{{ .Values.appName }}-ns"
+  labels:
+    app: "{{ .Values.appName }}"
+spec:
+  storageClassName: "{{ .Values.appName }}-mongodb-sc"
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi

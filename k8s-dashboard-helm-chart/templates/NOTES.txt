@@ -1,0 +1,12 @@
+1. To view the kubernetes dashboard run the following command
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+
+2. Dashboard will be available at: https://localhost:8443
+
+3. To get the token, run the below command-
+kubectl get secret admin-user -n kubernetes-dashboard -o=jsonpath='{.data.token}'
+
+4. Decode the token using Base64 decoder
+https://www.base64decode.org/
+
+5. Paste the decoded token and voila access the dashboard!

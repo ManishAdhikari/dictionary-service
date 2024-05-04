@@ -5,6 +5,6 @@ metadata:
   namespace: "{{ .Values.appName }}-ns"
 spec:
   hard:
-    pods: 5
+    pods: 10
     cpu: 4
     memory: 10Gi

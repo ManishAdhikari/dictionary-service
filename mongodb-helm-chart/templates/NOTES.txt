@@ -1,0 +1,7 @@
+Mongodb service deployed in '{{ .Release.Namespace }}' namespace
+
+Mongodb service DNS (accessible only within cluster)
+dictionary-service-mongodb-sts-0.dictionary-service-mongodb-svc.dictionary-service-ns.svc.cluster.local
+
+For more details on deployment of Mongodb to k8s cluster refer
+https://phoenixnap.com/kb/kubernetes-mongodb

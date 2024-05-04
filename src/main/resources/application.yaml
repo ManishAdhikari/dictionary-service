@@ -5,8 +5,30 @@ server:
 spring:
   data:
     mongodb:
-      uri: ${DB_URL:mongodb://dictUser:dictPass@localhost:27017/dictionary-service-db}
+      host: ${DB_HOST:localhost}
+      port: ${DB_PORT:27017}
+      database: ${DB_NAME:dictionary-service-db}
+      username: ${DB_USER:user}
+      password: ${DB_PASSWORD:password}
   jackson:
     default-property-inclusion: non_null
 app:
   dictionary-api-url: ${DICT_API_URL:https://api.dictionaryapi.dev/api/v2/entries/en/}
+management:
+  server:
+    port: 9191
+    base-path: /
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: ["*"]
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true

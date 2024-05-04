@@ -13,8 +13,8 @@ db = db.getSiblingDB('dictionary-service-db');
 db.createCollection('dictionary', { capped: false });
 db.createUser(
   {
-    user: "dictUser",
-    pwd: "dictPass",
+    user: "appUser",
+    pwd: "appPass",
     roles: [
         {
             role: "readWrite",

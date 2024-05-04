@@ -70,6 +70,7 @@ public class DictionaryService {
         DictionaryApiResponse[] dictionaryApiResponse = null;
         try {
             dictionaryApiResponse = objectMapper.readValue(response, DictionaryApiResponse[].class);
+            log.info("Received response from dictionary api. Response array size: {}", dictionaryApiResponse.length);
         } catch (JsonProcessingException e) {
             log.error("Error occurred while parsing the dictionary api response", e);
         }
