@@ -10,6 +10,6 @@ statefulset:
   replicaCount: 2
 autoscaling:
   minReplicas: 2
-  maxReplicas: 4
-  targetCPUUtilizationPercentage: 5
-  targetMemoryUtilizationPercentage: 5
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 15
+  targetMemoryUtilizationPercentage: 15

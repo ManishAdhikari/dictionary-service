@@ -85,12 +85,12 @@ spec:
               - key: MONGO_ROOT_PASSWORD
                 path: admin/MONGO_ROOT_PASSWORD
                 mode: 0444
-              - key: MONGO_USERNAME
-                path: MONGO_USERNAME
-                mode: 0444
-              - key: MONGO_PASSWORD
-                path: MONGO_PASSWORD
-                mode: 0444
+#              - key: MONGO_USERNAME
+#                path: MONGO_USERNAME
+#                mode: 0444
+#              - key: MONGO_PASSWORD
+#                path: MONGO_PASSWORD
+#                mode: 0444
               - key: MONGO_USERS_LIST
                 path: MONGO_USERS_LIST
                 mode: 0444

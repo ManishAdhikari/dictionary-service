@@ -10,7 +10,7 @@ data:
     storage:
       dbPath: /data/db
   ensure-users.js: |
-    const targetDbStr = '"{{ .Values.appName }}-db"';
+    const targetDbStr = 'dictionary-service-db';
     print('==============================');
     print(targetDbStr);
     const rootUser = cat('/etc/k8-test/admin/MONGO_ROOT_USERNAME');
@@ -51,7 +51,7 @@ data:
           if (!~customRoles.indexOf(role)) {
             return role;
           }
-          return {role: role, db: 'admin'}; 
+          return {role: role, db: targetDbStr}; 
         });
 
         try {
