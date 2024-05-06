@@ -5,15 +5,24 @@ server:
 spring:
   data:
     mongodb:
-      host: ${DB_HOST:localhost}
-      port: ${DB_PORT:27017}
-      database: ${DB_NAME:dictionary-service-db}
-      username: ${DB_USER:user}
-      password: ${DB_PASSWORD:password}
+      uri: mongodb://${DB_USER:appUser}:${DB_PASSWORD:appPass}@${DB_HOST:localhost:27017}/${DB_NAME:dictionary-service-db}
+      #host: ${DB_HOST:localhost}
+      #port: ${DB_PORT:27017}
+      #database: ${DB_NAME:dictionary-service-db}
+      #username: ${DB_USER:user}
+      #password: ${DB_PASSWORD:password}
   jackson:
     default-property-inclusion: non_null
 app:
   dictionary-api-url: ${DICT_API_URL:https://api.dictionaryapi.dev/api/v2/entries/en/}
+logging:
+  level:
+    org.springframework:
+      data.mongodb: INFO
+      boot.autoconfigure.mongo: INFO
+    com.mongodb.client: INFO
+    com.learn.microservice: INFO
+
 management:
   server:
     port: 9191

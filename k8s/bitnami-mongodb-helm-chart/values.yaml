@@ -1,0 +1,16 @@
+architecture: "replicaset"
+auth:
+  rootPassword: "rootSecret"
+  username: "dictUser"
+  password: "dictPass"
+  database: "dictionary-service-db"
+  replicaSetKey: "rskey001"
+replicaSetName: "mongoRepSet"
+replicaCount: 3
+persistence:
+  storageClass: "standard"
+  size: 3Gi
+rbac:
+  create: true
+podSecurityPolicy:
+  create: true

@@ -5,8 +5,6 @@ SET appNamespace=dictionary-service-ns
 SET dbNamespace=database-ns
 SET appImage=dictionary-service
 SET appImageTag=latest
-SET mongoImage=mongo
-SET mongoImageTag=4.0.8
 
 kind create cluster -n %clusterName% --config %clusterType%
 
@@ -46,26 +44,25 @@ kubectl label ns %dbNamespace% ns-type=db-ns
 echo "======== Installing mongodb helm chart.. ========"
 ::to install mongodb in controlplane node
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
-helm install mongodb-rel k8s/mongodb-helm-chart
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm install mongo -f k8s/bitnami-mongodb-helm-chart/values.yaml bitnami/mongodb -n %dbNamespace%
 echo "======== Waiting for mongodb deployment to become available.. ======== "
 timeout 30
 
 podman build -t docker.io/library/%appImage%:%appImageTag% -f Dockerfile
 podman save docker.io/library/%appImage%:%appImageTag% -o target/%appImage%-%appImageTag%.tar
 kind load image-archive target/%appImage%-%appImageTag%.tar --name %clusterName%
-podman pull docker.io/library/%mongoImage%:%mongoImageTag%
-podman save docker.io/library/%mongoImage%:%mongoImageTag% -o target/%mongoImage%-%mongoImageTag%.tar
-kind load image-archive target/%mongoImage%-%mongoImageTag%.tar --name %clusterName%
 
 kubectl create ns %appNamespace%
 kubectl label ns %appNamespace% ns-type=app-ns
-echo "======== Installing dictionary-service helm chart.. ========"
-helm install dictionary-rel k8s/dictionary-service-helm-chart
-
 for /F %%v in ('kubectl config current-context') do @SET "currContext=%%v"
 echo "Current context is = %currContext%"
 kubectl config set-context %currContext% --namespace %appNamespace%
 kubectl config use-context %currContext% --namespace %appNamespace%
 
+echo "======== Installing dictionary-service helm chart.. ========"
+helm install dictionary-rel k8s/dictionary-service-helm-chart
+
 ::helm uninstall dictionary-rel
-::helm uninstall mongodb-rel
+::helm uninstall mongo

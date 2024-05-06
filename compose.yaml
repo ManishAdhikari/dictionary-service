@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: 'dictionary-service'
     environment:
-      - DB_HOST=mongodb
-      - DB_PORT=27017
+      - DB_HOST=mongodb:27017
+      #- DB_PORT=27017
       - DB_NAME=dictionary-service-db
       - DB_USER=appUser
       - DB_PASSWORD=appPass
@@ -24,5 +24,5 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./docker/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 

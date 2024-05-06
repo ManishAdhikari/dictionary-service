@@ -39,7 +39,8 @@ public class DictionaryService {
                                 .toList())
                         .build())
                 .orElse(wordDtoBuilder.meanings(List.of()).build());
-        dictionaryRepository.save(wordMapper.toWordEntity(wordDto));
+        var entity = dictionaryRepository.save(wordMapper.toWordEntity(wordDto));
+        log.info("Response saved in database with id: {}", entity.getId());
         return wordDto;
     }
 
@@ -52,7 +53,8 @@ public class DictionaryService {
                                 .toList())
                         .build())
                 .orElse(wordDtoBuilder.synonyms(List.of()).build());
-        dictionaryRepository.save(wordMapper.toWordEntity(wordDto));
+        var entity = dictionaryRepository.save(wordMapper.toWordEntity(wordDto));
+        log.info("Response saved in database with id: {}", entity.getId());
         return wordDto;
     }
 
